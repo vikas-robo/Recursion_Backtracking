@@ -1,0 +1,31 @@
+class Solution {
+   int total;
+    public boolean checkValidGrid(int[][] grid) {
+        total= grid.length* grid.length-1;
+        boolean visited[][]= new boolean [grid.length][grid[0].length];
+        return dfs(grid,0,0,visited,0);
+        
+        // k ka matlab hai konsa cell visit karega
+    }
+    public boolean dfs(int [][] grid, int i, int j, boolean visited[][], int k){
+        if(i<0 ||j<0 ||  i>=grid.length || j>=grid.length || visited[i][j]==true || grid[i][j]!=k){
+            return false;
+        }
+        
+        //ye wala grid[i][j]!=k tab kaam aayega jab 7 pe se hm sirf 0 ya 6 pe hi jaa payenge
+        
+        // hme isme 8 ke 8 point me call laga rhe hai jab tak true means call lag sakti hai tabtak lagegi lekin agar 8 o me se kissi me bhi call na lag ppaye to false return kar denge
+        
+        if(k==total)return true;
+        visited[i][j]=true;
+        if(dfs(grid, i-2, j+1, visited, k+1))return true;
+        else if(dfs(grid, i-1, j+2, visited, k+1))return true;
+        else if(dfs(grid, i+1, j+2, visited, k+1))return true;
+        else if(dfs(grid, i+2, j+1, visited, k+1))return true;
+        else if(dfs(grid, i+2, j-1, visited, k+1))return true;
+        else if(dfs(grid, i+1, j-2, visited, k+1))return true;
+        else if(dfs(grid, i-1, j-2, visited, k+1))return true;
+        else if(dfs(grid, i-2, j-1, visited, k+1))return true;
+        return false;
+    }
+}
